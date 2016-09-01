@@ -39,7 +39,7 @@ RUN echo " <?php phpinfo(); ?>" | tee /usr/share/nginx/html/info.php
 #edit default nginx config
 RUN sed -i "s/index index.html index.htm;/index.php index.html index.htm;/g" /etc/nginx/sites-available/default
 RUN mkdir /usr/share/nginx/html/sites/default/files
-RUN cp /usr/share/nginx/html/sites/default/default.settings.php sites/default/settings.php
+RUN cp /usr/share/nginx/html/sites/default/default.settings.php /usr/share/nginx/html/sites/default/settings.php
 RUN chown -R www-data:www-data /usr/share/nginx/html/sites
 RUN chown www-data:www-data /usr/share/nginx/html/sites/default
 RUN chmod 755 /usr/share/nginx/html/sites/default
