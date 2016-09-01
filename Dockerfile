@@ -17,6 +17,7 @@ RUN mysql_install_db
 RUN service mysql restart
 RUN service mysql start && \
     mysqladmin -u root password "root" && \
+    /usr/bin/mysqladmin -u root password 'new-password' && \
     mysql -u root -proot -e "DELETE FROM mysql.user WHERE User='';" && \
     mysql -u root -proot -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1');" && \
     mysql -u root -proot -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" && \
@@ -25,7 +26,7 @@ RUN service mysql start && \
     mysql -u root -proot -e "CREATE DATABASE civicrm DEFAULT CHARACTER SET utf8;" && \
     mysql -u root -proot -e "GRANT ALL PRIVILEGES ON civicrm.* TO civicrm@'%' IDENTIFIED BY 'password1' WITH GRANT OPTION;" && \
     mysql -u root -proot -e "FLUSH PRIVILEGES;" && \
-    service mysql  stop
+    cd /usr ; /usr/bin/mysqld_safe &
 WORKDIR /
 RUN drush dl drupal-7
 RUN cp -R /drupal-7.50/* /usr/share/nginx/html/
