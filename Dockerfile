@@ -29,7 +29,9 @@ RUN service mysql start && \
 WORKDIR /
 RUN drush dl drupal-7
 RUN cp -R /drupal-7.50/* /usr/share/nginx/html/
-RUN cp /drupal-7.50/.* /usr/share/nginx/html/
+RUN cp /drupal-7.50/.editorconfig /usr/share/nginx/html/
+RUN cp /drupal-7.50/.gitignore /usr/share/nginx/html/
+RUN cp /drupal-7.50/.htaccess /usr/share/nginx/html/
 RUN sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/fpm/php.ini
 RUN service php5-fpm restart
 RUN touch /usr/share/nginx/html/info.php
