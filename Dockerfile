@@ -12,7 +12,7 @@ RUN apt-get install -y mysql-server
 RUN apt-get install -y drush git
 RUN mysql_install_db
 RUN service mysql start && \
-    mysqladmin -u root password "password1" && \
+    mysqladmin -u root password "root" && \
     mysql -u root -proot -e "DELETE FROM mysql.user WHERE User='';" && \
     mysql -u root -proot -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1');" && \
     mysql -u root -proot -e "DROP DATABASE test;" && \
