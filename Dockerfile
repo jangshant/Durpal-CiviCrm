@@ -24,9 +24,10 @@ RUN service mysql restart && \
     mysql -u root -proot -e "GRANT ALL PRIVILEGES ON civicrm.* TO civicrm@'%' IDENTIFIED BY 'password1' WITH GRANT OPTION;" && \
     mysql -u root -proot -e "FLUSH PRIVILEGES;" && \
     service mysql  stop
+WORKDIR /
 RUN drush dl drupal-7
-RUN cp -R drupal-7.50/* /usr/share/nginx/html/
-RUN cp drupal-7.50/.* /usr/share/nginx/html/
+RUN cp -R /drupal-7.50/* /usr/share/nginx/html/
+RUN cp /drupal-7.50/.* /usr/share/nginx/html/
 RUN sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/fpm/php.ini
 RUN touch /usr/share/nginx/html/info.php
 RUN echo " <?php phpinfo(); ?>" | tee /usr/share/nginx/html/info.php
@@ -42,3 +43,4 @@ RUN chmod a+w /usr/share/nginx/html/sites/default/files
 RUN mkdir /usr/share/nginx/private
 RUN chown www-data:www-data /usr/share/nginx/private
 RUN chmod 700 /usr/share/nginx/html/sites/default/files/civicrm/upload
+EXPOSE 80 443
