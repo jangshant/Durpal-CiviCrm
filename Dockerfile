@@ -49,6 +49,5 @@ RUN mkdir /usr/share/nginx/private
 RUN chown www-data:www-data /usr/share/nginx/private
 WORKDIR /usr/share/nginx/html/
 RUN drush site-install standard --account-name=admin --account-pass=password1 --db-url=mysql://drupal:password1@localhost/drupaldb
-RUN chmod 700 /usr/share/nginx/html/sites/default/files/civicrm/upload
 EXPOSE 80 443
 ENTRYPOINT ["/bin/bash"]
