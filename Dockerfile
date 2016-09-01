@@ -15,7 +15,6 @@ RUN service mysql start && \
     mysqladmin -u root password "root" && \
     mysql -u root -proot -e "DELETE FROM mysql.user WHERE User='';" && \
     mysql -u root -proot -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1');" && \
-    mysql -u root -proot -e "DROP DATABASE test;" && \
     mysql -u root -proot -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" && \
     mysql -u root -proot -e "CREATE DATABASE drupaldb DEFAULT CHARACTER SET utf8;" && \
     mysql -u root -proot -e "GRANT ALL PRIVILEGES ON drupaldb.* TO drupal@'%' IDENTIFIED BY 'password1' WITH GRANT OPTION;" && \
