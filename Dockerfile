@@ -16,7 +16,6 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN mysql_install_db
 RUN service mysql restart
 RUN service mysql start && \
-    mysqladmin -u root password "root" && \
     /usr/bin/mysqladmin -u root password 'new-password' && \
     mysql -u root -proot -e "DELETE FROM mysql.user WHERE User='';" && \
     mysql -u root -proot -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1');" && \
