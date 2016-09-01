@@ -12,7 +12,7 @@ RUN service nginx start
 RUN apt-get install -y php5 php5-fpm php5-cli php5-gd php5-mcrypt php5-mysql php5-curl php-console-table php-pear wget
 RUN apt-get install -y mysql-server
 RUN apt-get install -y drush git
-RUN rm /var/lib/apt/lists/*
+RUN rm -rf /var/lib/apt/lists/*
 RUN mysql_install_db
 RUN service mysql restart
 RUN service mysql start && \
