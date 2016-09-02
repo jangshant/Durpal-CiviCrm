@@ -16,10 +16,12 @@ RUN  rm -rf /var/lib/apt/lists/*
 RUN  mysql_install_db
 RUN  service mysql restart
 RUN service mysql start && \
-    /usr/bin/mysqladmin -u root password 'new-password' && \
+    /usr/bin/mysqladmin -u root password 'password1' && \
     mysql -u root -proot -e "DELETE FROM mysql.user WHERE User='';" && \
     mysql -u root -proot -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1');" && \
     mysql -u root -proot -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" && \
+    mysql -u root -proot -e "INSERT INTO mysql.user (Host, User, Password) VALUES ('%', 'root', password('password1'));"
+    mysql -u root -proot -e "GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION;"
     mysql -u root -proot -e "CREATE DATABASE drupaldb DEFAULT CHARACTER SET utf8;" && \
     mysql -u root -proot -e "GRANT ALL PRIVILEGES ON drupaldb.* TO drupal@'%' IDENTIFIED BY 'password1' WITH GRANT OPTION;" && \
     mysql -u root -proot -e "CREATE DATABASE civicrm DEFAULT CHARACTER SET utf8;" && \
