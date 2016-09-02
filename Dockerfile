@@ -9,7 +9,7 @@ ENV LC_ALL en_US.UTF-8
 RUN apt-get update
 RUN apt-get install -y nginx
 RUN service nginx start
-RUN apt-get install -y php5 php5-fpm php5-cli php5-gd php5-mcrypt php5-mysql php5-curl php5-console-table php5-pear wget
+RUN apt-get install -y php5 php5-fpm php5-cli php5-gd php5-mcrypt php5-mysql php5-curl
 RUN apt-get install -y mysql-server
 RUN apt-get install -y drush git
 RUN  rm -rf /var/lib/apt/lists/*
@@ -28,9 +28,9 @@ RUN service mysql start && \
     cd /usr ; /usr/bin/mysqld_safe &
 WORKDIR /
 RUN drush dl drupal-7
-RUN   cp -R /drupal-7.50/* /usr/share/nginx/html/ && \
-RUN   cp /drupal-7.50/.editorconfig /usr/share/nginx/html/ && \
-RUN   cp /drupal-7.50/.gitignore /usr/share/nginx/html/ && \
+RUN   cp -R /drupal-7.50/* /usr/share/nginx/html/
+RUN   cp /drupal-7.50/.editorconfig /usr/share/nginx/html/
+RUN   cp /drupal-7.50/.gitignore /usr/share/nginx/html/
 RUN   cp /drupal-7.50/.htaccess /usr/share/nginx/html/
 RUN sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/fpm/php.ini
 RUN service php5-fpm restart
