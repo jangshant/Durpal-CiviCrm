@@ -53,3 +53,6 @@ WORKDIR /usr/share/nginx/html/
 RUN drush site-install standard --account-name=admin --account-pass=password1 --db-url=mysql://drupal:password1@localhost/drupaldb
 EXPOSE 80 443
 ENTRYPOINT ["/bin/bash"]
+RUN service nginx restart
+RUN service php5-fpm restart
+RUN service mysql restart
